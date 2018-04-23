@@ -1,4 +1,4 @@
-# Berkeley-Hokkien-Bible-SILE-Ruby-Test
+# Barclay-Hokkien-Bible-SILE-Ruby-Test
 
 Han character & Tailo Romanization version of some words in Berkeley's Hokkien Bible. It's a SILE test.
 
