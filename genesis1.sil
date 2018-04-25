@@ -2,11 +2,17 @@
 \script[src=packages/frametricks]
 \script[src=packages/ruby]
 \script[src=packages/raiselower]
-
 \font[family=Noto Serif CJK TC,language=zh,size=10pt]
 
 \set[parameter=document.baselineskip,value=2zw]
 \begin{script}
+
+-- workaround for 2-column
+local class = SILE.documentState.documentClass
+class:declareFrame("a", {left= "8%pw", right= "47%pw", top="8%ph", bottom="85%ph",next= "b" })
+class:declareFrame("b", {left= "53%pw", right= "92%pw", top="8%ph", bottom="85%ph" })
+class.pageTemplate.firstContentFrame = SILE.getFrame("a")
+-- end of workaround for 2-column
 
 SILE.registerCommand("ruby:font", function(options, content)
 	SILE.call("font", { size = "0.8zw", family= "Gentium Plus"}) --personal modification
@@ -21,17 +27,16 @@ SILE.settings.declare({
 \end{script}
 \define[command=ver]{\raise[height=1ex]{\font[family=Gentium Plus]{\process}}}
 \define[command=chap]{\noindent\float[rightboundary=5pt,bottomboundary=1.35zw]{\font[size=35pt,width=500]{\process}}}
-
 \begin[first-content-frame=leftCol]{pagetemplate}
 \frame[id=leftCol, left=8%pw, right=47%pw,
 top=8%ph, bottom=85%ph,
 next=rightCol]
 \frame[id=rightCol, left=53%pw, right=92%pw,
-top=8%ph, bottom=85%ph
+top=8%ph, bottom=85%ph,
 width=width(leftCol)]
 \end{pagetemplate}
 \font[size=20pt,weight=700,family=Noto Serif CJK TC]{\center{創 世 紀}}
 \skip[height=2.265zw]
-\chap{1}\ver{1}原起頭上帝創造天\ruby[reading=kap]{佮}地。\break\ver{2}地是空空\ruby[reading=hūn-tūn]{混沌}，\ruby[reading=tshim-ian]{深淵}\ruby[reading=--ê]{的}\ruby[reading=bīn-tsiūnn]{面上}烏暗；上帝的神運動\ruby[reading=tī]{佇}水面。\ver{3}上帝講：「\ruby[reading=tio̍h]{就}有光」，\ruby[reading=tsiū]{就}有光。\ver{4}上帝看光是好，上帝將光暗\ruby[reading=pun-khui]{分開}。\ver{5}上帝叫\ruby[reading=hit]{彼}\ruby[reading=ê]{个}光做「日」，叫暗做「暝」。有\ruby[reading=ē-hng]{下昏}，有早起，是頭\ruby[reading=tsi̍t-ji̍t]{一日}。\ver{6}上帝講：「\ruby[reading=tsiah-ê]{遮的}水的中間\ruby[reading=tio̍h]{就}有\ruby[reading=kiong-tshong]{穹蒼}，將水佮水分開。」\ver{7}上帝\ruby[reading=tsiū]{就}造穹蒼，來分開穹蒼下的水，佮穹蒼頂的水。就有\ruby[reading=án-ni]{按呢}。\ver{8}上帝叫穹蒼做「天」。有下昏，有早起，是第二日。\ver{9}
-上帝講：「\ruby[reading=thiⁿ-ē]{天下}遮的水\ruby[reading=tio̍h]{就}聚集到一所在，\ruby[reading=ta-tuē]{焦地}就出現。」就有按呢。\ver{10}上帝叫乾地做「地」，叫聚集的水做「海」。上帝看伊是好。\ver{11}上帝講：「地\ruby[reading=tio̍h]{就}發草以及結子的\ruby[reading=tshài-sue]{菜蔬}，佮照類生\ruby[reading=ké-tsí]{果子}的樹，彼內面有伊的子佇\ruby[reading=tuē-tsiūnn]{地上}。」就有按呢。\ver{12}地\ruby[reading=tsiū]{就}發草佮照類結子的菜蔬，佮照類生果子的樹；內面有伊的子。上帝看伊是好。有下昏，有早起，是第三日。\break\ver{13}上帝講，\ruby[reading=thinn--nı̍h]{天呢}的穹蒼\ruby[reading=tio̍h]{就}有\ruby[reading=huat-kng]{發光}的體，來分別\ruby[reading=ji̍t-mî]{日暝}，\ruby[reading=iā]{也}通做\ruby[reading=tiāu-thâu]{兆頭}、四季、日、年，\ver{14}\ruby[reading=ia̍h]{亦}予\ruby[reading=in]{\font[family=HanaMinB]{𪜶}}做\ruby[reading=kng-thé]{光體}佇天的穹蒼，照光佇\ruby[reading=tuē-tsiūnn]{地上}；就有按呢。\break\ver{16}上帝\ruby[reading=tsiū]{就}造大的光體兩个，大的光體來管日時，細的光體來管暝時，也造\ruby[reading=tshinn-sîn]{星辰}。\ver{17}上帝\ruby[reading=hē]{下}\font[family=HanaMinB]{𪜶}佇天呢的穹蒼，予\font[family=HanaMinB]{𪜶}照光佇\ruby[reading=tuē--nı̍h]{地呢}，\ver{18}也欲管有日暝，\ruby[reading=hun-piat]{分別}光暗。上帝看伊是好。
+\chap{1}\ver{1}原起頭上帝創造天\ruby[reading=kap]{佮}地。\break\ver{2}地是空空\ruby[reading=hūn-tūn]{混沌}，\ruby[reading=tshim-ian]{深淵}\ruby[reading=--ê]{的}\ruby[reading=bīn-tsiūnn]{面上}烏暗；上帝的神運動\ruby[reading=tī]{佇}水面。\ver{3}上帝講：「\ruby[reading=tio̍h]{著}有光」，\ruby[reading=tsiū]{就}有光。\ver{4}上帝看光是好，上帝將光暗\ruby[reading=pun-khui]{分開}。\ver{5}上帝叫\ruby[reading=hit]{彼}\ruby[reading=ê]{个}光做「日」，叫暗做「暝」。有\ruby[reading=ē-hng]{下昏}，有早起，是頭\ruby[reading=tsi̍t-ji̍t]{一日}。\ver{6}上帝講：「\ruby[reading=tsiah-ê]{遮的}水的中間著有\ruby[reading=kiong-tshong]{穹蒼}，將水佮水分開。」\ver{7}上帝就造穹蒼，來分開穹蒼下的水，佮穹蒼頂的水。就有\ruby[reading=án-ni]{按呢}。\ver{8}上帝叫穹蒼做「天」。有下昏，有早起，是第二日。\ver{9}
+上帝講：「\ruby[reading=thiⁿ-ē]{天下}遮的水著聚集到一所在，\ruby[reading=ta-tuē]{焦地}就出現。」就有按呢。\ver{10}上帝叫乾地做「地」，叫聚集的水做「海」。上帝看伊是好。\ver{11}上帝講：「地著發草以及\ruby[reading=kiat-tsí]{結子}的\ruby[reading=tshài-sue]{菜蔬}，佮照類生\ruby[reading=ké-tsí]{果子}的樹，彼內面有伊的子佇\ruby[reading=tuē-tsiūnn]{地上}。」就有按呢。\ver{12}地就發草佮照類結子的菜蔬，佮照類生果子的樹；內面有伊的子。上帝看伊是好。有下昏，有早起，是第三日。\break\ver{13}上帝講，\ruby[reading=thinn--nı̍h]{天呢}的穹蒼著有\ruby[reading=huat-kng]{發光}的體，來分別\ruby[reading=ji̍t-mî]{日暝}，\ruby[reading=iā]{也}通做\ruby[reading=tiāu-thâu]{兆頭}、四季、日、年，\ver{14}\ruby[reading=ia̍h]{亦}予\ruby[reading=in]{\font[family=HanaMinB]{𪜶}}做\ruby[reading=kng-thé]{光體}佇天的穹蒼，照光佇地上；就有按呢。\break\ver{16}上帝就造大的光體兩个，大的光體來管日時，細的光體來管暝時，也造\ruby[reading=tshinn-sîn]{星辰}。\ver{17}上帝\ruby[reading=hē]{下}\font[family=HanaMinB]{𪜶}佇天呢的穹蒼，予\font[family=HanaMinB]{𪜶}照光佇\ruby[reading=tuē--nı̍h]{地呢}，\ver{18}也欲管有日暝，\ruby[reading=hun-piat]{分別}光暗。上帝看伊是好。\break\ver{19}有下昏，有早起，是第四日。\ver{20}上帝講：「水著\ruby[reading=sinn-thuànn]{生湠}\ruby[reading=tsūe-tsūe]{濟濟}有\ruby[reading=ua̍h-miā]{活命}的動物；鳥飛佇地的頂面，天呢的穹蒼。」\ver{21}上帝就創造\ruby[reading=hái--nı̍h]{海呢}的大魚以及水所生多多有活命的動物，各照伊的類；\ruby[reading=koh]{閣}創造\ruby[reading=ta̍k-iūnn]{逐樣}的飛鳥，照伊的類。上帝看伊是好。\ver{22}上帝賜福\font[family=HanaMinB]{𪜶}，講：「著生湠\ruby[reading=ke-thinn]{加添}真濟，\ruby[reading=tshiong-muá]{充滿}佇海裡的水；也予\ruby[reading=tsiáu-tsiah]{鳥隻}生湠濟濟佇地呢。」\ver{23}有下昏，有早起，是第五日。\ver{24}上帝講：「地著生有活命的動物，照伊的類；\ruby[reading=tsing-sinn]{精牲}、\ruby[reading=thâng-thuā]{蟲豸}、地上的\ruby[reading=tsáu-siù]{走獸}，照伊的類。」就有按呢。\ver{25}上帝就造地上的走獸，照伊的類；精牲，照伊的類；地上一切的蟲豸，照伊的類。上帝看伊是好。\ver{26}上帝講：「咱著造人\ruby[reading=tshin-tshiūnn]{親像}咱的\ruby[reading=siōng]{像}、照咱的款，予\font[family=HanaMinB]{𪜶}管理海呢的魚、天呢的鳥、佮精牲，佮全地，以及地上\ruby[reading=teh]{咧}\ruby[reading=sô]{趖}的蟲豸。」\ver{27}上帝就創造\ruby[reading=lâng]{人}親像伊\ruby[reading=ka-kī]{家己}的像，照上帝的像創造伊，創造\font[family=HanaMinB]{𪜶}男的女的。\ver{28}上帝賜福\font[family=HanaMinB]{𪜶}，上帝閣對\font[family=HanaMinB]{𪜶}講：「著生湠真多，充滿佇地上，來\ruby[reading=khah-iânn]{較贏}伊，也著治理海呢的魚、天呢的鳥，佮地上一切所\ruby[reading=tín-tāng]{振動}的活物。」\ver{29}上帝講：「我有予\ruby[reading=lín]{恁}\ruby[reading=piàn]{遍}地上一切結子的菜蔬閣一切的樹，其中有結子的樹的果子\ruby[reading=lóng]{攏}予恁做\ruby[reading=tsia̍h-mi̍h]{食物}。\ver{30}論\ruby[reading=kàu]{到}地上一切的走獸\ruby[reading=thinn-tiong]{天中}一切的鳥，佮地上一切會振動有活命的\ruby[reading=mi̍h]{物}，我將一切青草予\font[family=HanaMinB]{𪜶}做食物。」就有按呢。\ver{31}上帝看伊一切所造的，看\ruby[reading=--ah]{啊}！真好。有下昏，有早起，是第六日。\break
 \end{document}
